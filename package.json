@@ -1,0 +1,19 @@
+{
+  "name": "responsive-images-with-graphics-magick",
+  "version": "1.0.0",
+  "description": "responsive images with graphics magick",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "GraphicsMagick",
+    "responsive",
+    "images"
+  ],
+  "author": "Vladlan",
+  "license": "ISC",
+  "dependencies": {
+    "gm": "^1.23.1"
+  }
+}
