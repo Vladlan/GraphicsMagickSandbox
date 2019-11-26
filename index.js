@@ -3,6 +3,7 @@ const fs = require('fs');
 const img1Path = './img1.jpg';
 const img1ResPath = './img1-res1.jpg';
 const img2Path = './img2.png';
+const img2ResPath = './img2-res1.jpg';
 
 function printImageData(imgBuffer) {
     return new Promise((resolve, reject) => {
@@ -23,17 +24,29 @@ function printImageData(imgBuffer) {
 };
 
 async function printImageComparison() {
-    const img1Buffer = fs.readFileSync(img1Path);
-    const img2Buffer = fs.readFileSync(img2Path);
+    const img1Buffer = fs.readFileSync(img2Path);
     await printImageData(img1Buffer);
     gm(img1Buffer)
-        .resize(960, 600)
-        .write(img1ResPath, function (err) {
+        // .resize(960, 600)
+        // .minify(0.5)
+        .filter('Triangle')
+        .define('filter:support=2')
+        .unsharp(0.25, 0.25, 8, 0.065)
+        .quality(30)
+        .define('jpeg:fancy-upsampling=off')
+        .define('png:compression-filter=5')
+        .define('png:compression-level=9')
+        .define('png:compression-strategy=1')
+        .define('png:exclude-chunk=all')
+        .interlace('Line')
+        .colorspace('RGB')
+        .strip()
+        .write(img2ResPath, function (err) {
             if (err) {
                 console.log(err);
                 return
             }
-            const img1BufferResult = fs.readFileSync(img1ResPath);
+            const img1BufferResult = fs.readFileSync(img2ResPath);
             printImageData(img1BufferResult);
         });
 };
