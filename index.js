@@ -2,8 +2,8 @@ const gm = require('gm');
 const fs = require('fs');
 const img1Path = './img1.jpg';
 const img1ResPath = './img1-res1.jpg';
-const img2Path = './img2.png';
-const img2ResPath = './img2-res1.jpg';
+const img2Path = './img2-res1.jpg';
+const img2ResPath = './img2-res2.jpg';
 
 function printImageData(imgBuffer) {
     return new Promise((resolve, reject) => {
@@ -28,11 +28,16 @@ async function printImageComparison() {
     await printImageData(img1Buffer);
     gm(img1Buffer)
         // .resize(960, 600)
-        // .minify(0.5)
+        .minify(0.5)
+        .density(288, 288)
+        .fill('red')
+        .fontSize(8)
+        .drawText(30, 60, '640x360')
+        // .geometry(1280, 720)
         .filter('Triangle')
         .define('filter:support=2')
         .unsharp(0.25, 0.25, 8, 0.065)
-        .quality(30)
+        .quality(50)
         .define('jpeg:fancy-upsampling=off')
         .define('png:compression-filter=5')
         .define('png:compression-level=9')
