@@ -9,7 +9,7 @@ async function transformImg(imgPath, toImg) {
       .samplingFactor(4, 2)
       .strip() // remove all profiles and comments
       .interlace("Plane") // Interlace type
-      .gaussian(0.05) // reduce noise
+      .gaussian(imgPath.includes('.png') ? 0.05 : 0)
       .quality(80)
       .write(toImg, async function (err) {
         if (err) return console.dir(arguments);
@@ -25,9 +25,10 @@ async function transformImg(imgPath, toImg) {
 }
 
 async function main() {
-  await transformImg("img1.jpg", "./img1-res.jpg");
-  await transformImg("img1.jpg", "./img1-res.webp");
-  await transformImg("img1.jpg", "./img1-res.png");
+  await transformImg("img1.jpg", "./results/res-img1.jpg");
+  await transformImg("img2.png", "./results/res-img2.png");
+  await transformImg("img3.webp", "./results/res-img3.webp");
+  await transformImg("img4.avif", "./results/res-img4.avif");
 }
 
 main();
