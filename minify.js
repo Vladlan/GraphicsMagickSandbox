@@ -10,7 +10,7 @@ async function transformImg(imgPath, toImg) {
       .strip() // remove all profiles and comments
       .interlace("Plane") // Interlace type
       .gaussian(imgPath.includes('.png') ? 0.05 : 0)
-      .quality(80)
+      .quality(75)
       .write(toImg, async function (err) {
         if (err) return console.dir(arguments);
         console.log(this.outname + " created  ::  " + arguments[3]);
